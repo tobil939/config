@@ -1,0 +1,19 @@
+Pfade der einzelnen ini Dateien
+
+i3
+  ~/.config/i3/config
+
+
+nvim
+  ~/.config/nvim/init.lua
+  ~/.config/nvim/lua/config/
+  ~/.config/nvim/lua/plugins/
+  
+
+gtk3
+  ~/.config/gtk-3.0/settings.ini
+
+
+gtk4
+  ~/.config/gtk-4.0/settings.ini
+
