@@ -48,14 +48,16 @@ sudo pacman -S gnome-calendar --noconfirm
 echo -e "\n \n \n Nvim"
 sudo pacman -S neovim --noconfirm
 echo -e "\n \n \n Email"
-sudo pacman -S gnome-extra --noconfirm
-echo -e "\n \n \n yay"
-sudo pacman -S -needed base-devel git
-git clone https://aur.archlinux.org/yay-bin.git
-cd yay-bin
-makepkg -si
-yay -version
-cd ..
+#sudo pacman -S gnome-extra --noconfirm
+#echo -e "\n \n \n yay"
+#sudo pacman -S -needed base-devel git --noconfirm
+#git clone https://aur.archlinux.org/yay-bin.git
+#cd yay-bin
+#makepkg -si
+#yay -version
+
+echo -e "\n \n \n Update"
+sudo pacman -Syu -noconfirm
 
 echo -e "\n \n \n git config"
 git config --global user.name "tobil939"
@@ -71,7 +73,27 @@ mkdir /home/tobil/git1/doku
 mkdir /home/tobil/git1/latex_vorlage
 
 echo -e "\n \n \n Dateien clonen"
-git clone https://github.com/tobil939/doku.git /home/tobil/git1/doku/
+git clone https://github.com/tobil939/doku.git /home/tobil/git1/doku
 git clone https://github.com/tobil939/config.git /home/tobil/git1/config
-git clone htpps://github.com/tobil939/arduino.git /home/tobil/git1/arduino
+git clone https://github.com/tobil939/arduino.git /home/tobil/git1/arduino
 git clone https://github.com/tobil939/latex_vorlage /home/tobil/git1/latex_vorlage
+
+echo -e "\n \n \n Dateien verschieben"
+cd /home/tobil/git1/config/
+mkdir ~/.config/nvim/
+mkdir ~/.config/nvim/lua/
+mkdir ~/.config/nvim/lua/config/
+mkdir ~/.config/nvim/lua/plugins/
+mkdir ~/.config/i3/
+mkdir ~/.config/gtk-3.0/
+mkdir ~/.config/gtk-4.0/
+cp init.lua ~/.config/nvim/init.lua
+cp example.lua ~/.config/nvim/lua/plugins/example.lua
+cp autocmds.lua ~/.config/nvim/lua/config/autocmds.lua
+cp keymaps.lua ~/.config/nvim/lua/config/keymaps.lua
+cp lazy.lua ~/.config/nvim/lua/config/lazy.lua
+cp options.lua ~/.config/nvim/lua/config/options.lua
+cp config_i3 ~/.config/i3/config
+cp i3status.conf ~/.config/i3/.i3status.conf
+cp settings_gtk3.ini ~/.config/gtk-3.0/settings.ini
+cp settings_gtk4.ini ~/.config/gtk-4.0/settings.ini
