@@ -3,6 +3,8 @@
 # Installation von verschiedenen Paketen
 echo -e "\n neofetch"
 sudo pacman -S neofetch --noconfirm
+echo -e "\n \n \n i3wm"
+sudo pacman -S i3-wm --noconfirm
 echo -e "\n kitty"
 sudo pacman -S kitty --noconfirm
 echo -e "\n dmenu"
