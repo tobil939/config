@@ -50,11 +50,13 @@ echo -e "\n Nitrogen"
 sudo pacman -S nitrogen --noconfirm
 echo -e "\n Kalender"
 sudo pacman -S gnome-calendar --noconfirm
+echo -e "\n \n \n i3status"
+sudo pacman -S i3status --noconfirm
 echo -e "\n Nvim"
 sudo pacman -S neovim --noconfirm
 echo -s "\n \n \n tree-sitter"
-sudo npm -install -g tree-sitter
-sudo npm -install -g tree-sitter-cli
+sudo npm -install -g tree-sitter --noconfirm
+sudo npm -install -g tree-sitter-cli --noconfirm
 
 # Update durchführen
 echo -e "\n \n \n Update"
@@ -95,6 +97,7 @@ mkdir -p ~/.config/gtk-4.0/
 mkdir -p ~/.config/kitty/
 
 # Dateien verschieben und alte löschen
+cd /home/tobil/git1/config/
 echo -e "\n \n \n init.lua"
 if [ -f ~/.config/nvim/init.lua ]; then
   sudo rm ~/.config/nvim/init.lua
@@ -157,8 +160,8 @@ fi
 sudo cp settings_gtk4.ini ~/.config/gtk-4.0/settings.ini
 
 echo -e "\n \n \n kitty conf"
-if [ -f ~/.config/kitty/kitty.conf]; then
-  sudo rm ~/.config/kitty/kitty.config
+if [ -f ~/.config/kitty/kitty.conf ]; then
+  sudo rm ~/.config/kitty/kitty.conf
 sudo cp kitty.conf ~/.config/kitty/kitty.conf
 
 echo -e "\n \n \n fertig"
