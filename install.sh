@@ -19,6 +19,8 @@ echo -e "\n feh"
 sudo pacman -S feh --noconfirm
 echo -e "\n git"
 sudo pacman -S git --noconfirm
+echo -e "\n \n \n nautilus"
+sudo pacman -S nautilus --noconfirm
 echo -e "\n timeshift"
 sudo pacman -S timeshift --noconfirm
 echo -e "\n xorg"
@@ -27,6 +29,7 @@ echo -e "\n gtk"
 sudo pacman -S gtk2 --noconfirm
 sudo pacman -S gtk3 --noconfirm
 sudo pacman -S gtk4 --noconfirm
+sudo pacman -S gtk-engine-murrine --noconfirm
 echo -e "\n Dark Theme"
 sudo pacman -S gnome-themes-extra --noconfirm
 sudo pacman -S arc-gtk-theme --noconfirm
@@ -134,4 +137,3 @@ if [ -f ~/.config/gtk-4.0/settings.ini ]; then
   sudo rm ~/.config/gtk-4.0/settings.ini
 fi
 sudo cp settings_gtk4.ini ~/.config/gtk-4.0/settings.ini
-

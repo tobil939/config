@@ -11,7 +11,7 @@ set $mod Mod1
 exec_always --no-startup-id picom
 exec_always --no-startup-id nitrogen --restore
 exec_always --no-startup-id /usr/lib/gsd-xsettings
-exec_always --no-startup-id lxappearance --restore
+#exec_always --no-startup-id lxappearance --restore
 
 #Ludwigsburg
 # exec_always --no-startup-id xrandr --output DP-1-1 --rotate right --auto       
@@ -34,24 +34,24 @@ exec_always --no-startup-id lxappearance --restore
 # workspace 10 output $sm 
 #
 #Hettingen
-exec_always --no-startup-id xrandr --output DP-1-1 --rotate right --auto       
-exec_always --no-startup-id xrandr --output DP-1-2 --rotate normal --auto  
-exec_always --no-startup-id xrandr --output eDP-1 --rotate normal --auto   
-exec_always --no-startup-id xrandr --output DP-1-1 --right-of DP-1-2
-exec_always --no-startup-id xrandr --output DP-1-2 --right-of eDP-1
-set $fm eDP-1
-set $sm DP-1-1
-set $tm DP-1-2
-workspace 1 output $fm  
-workspace 2 output $fm  
-workspace 3 output $tm    
-workspace 4 output $tm    
-workspace 5 output $tm    
-workspace 6 output $tm 
-workspace 7 output $tm    
-workspace 8 output $sm    
-workspace 9 output $sm    
-workspace 10 output $sm 
+#exec_always --no-startup-id xrandr --output DP-1-1 --rotate right --auto       
+#exec_always --no-startup-id xrandr --output DP-1-2 --rotate normal --auto  
+#exec_always --no-startup-id xrandr --output eDP-1 --rotate normal --auto   
+#exec_always --no-startup-id xrandr --output DP-1-1 --right-of DP-1-2
+#exec_always --no-startup-id xrandr --output DP-1-2 --right-of eDP-1
+#set $fm eDP-1
+#set $sm DP-1-1
+#set $tm DP-1-2
+#workspace 1 output $fm  
+#workspace 2 output $fm  
+#workspace 3 output $tm    
+#workspace 4 output $tm    
+#workspace 5 output $tm    
+#workspace 6 output $tm 
+#workspace 7 output $tm    
+#workspace 8 output $sm    
+#workspace 9 output $sm    
+#workspace 10 output $sm 
 
 
 # xmodmap -pke  zeigt alle möglichen Tasten an mit Namen der hier zu verwenden ist
@@ -59,9 +59,9 @@ bindsym $mod+shift+x exec "i3lock -c 000000"
 bindsym $mod+z exec evince
 bindsym $mod+u exec firefox
 bindsym $mod+i exec nautilus
-bindsym $mod+o exec i3-sensible-terminal -e nvim
+bindsym $mod+o exec kitty -e nvim
 bindsym $mod+p exec gnome-calendar
-bindsym $mod+plus exec i3-sensible-terminal -e nvim ~/.config/i3/config
+bindsym $mod+plus exec kitty -e nvim ~/.config/i3/config
 bindsym $mod+udiaeresis exec endeavour
 
 # Font for window titles. Will also be used by the bar unless a different font
@@ -102,7 +102,7 @@ floating_modifier $mod
 tiling_drag modifier titlebar
 
 # start a terminal
-bindsym $mod+Return exec i3-sensible-terminal
+bindsym $mod+Return exec kitty
 
 # kill focused window
 bindsym $mod+q kill
