@@ -80,20 +80,85 @@ git clone https://github.com/tobil939/latex_vorlage /home/tobil/git1/latex_vorla
 
 echo -e "\n \n \n Dateien verschieben"
 cd /home/tobil/git1/config/
-mkdir ~/.config/nvim/
-mkdir ~/.config/nvim/lua/
-mkdir ~/.config/nvim/lua/config/
-mkdir ~/.config/nvim/lua/plugins/
-mkdir ~/.config/i3/
-mkdir ~/.config/gtk-3.0/
-mkdir ~/.config/gtk-4.0/
+if [ ! -d "~/.config/nvim/"]; then
+  mkdir ~/.config/nvim/
+fi
+
+if [ ! -d "~/.config/nvim/lua/"]; then
+  mkdir ~/.config/nvim/lua/
+fi
+
+if [ ! -d "~/.config/nvim/lua/config/"]; then
+  mkdir ~/.config/nvim/lua/config/
+fi
+
+if [ ! -d "~/.config/nvim/lua/plugins/"]; then
+  mkdir ~/.config/nvim/lua/plugins/
+fi
+
+if [ ! -d "~/.config/i3/"]; then
+  mkdir ~/.config/i3/
+fi
+
+if [ ! -d "~/.config/gtk-3.0/"]; then
+  mkdir ~/.config/gtk-3.0/
+fi
+
+if [ ! -d "~/.config/gtk-4.0/"]; then
+  mkdir ~/.config/gtk-4.0/
+fi
+
+if [ -d "~/.config/nvim/init.lua"]; then
+  rm ~/.config/nvim/init.lua
+fi
 cp init.lua ~/.config/nvim/init.lua
+
+if [ -d "~/.config/nvim/lua/plugins/example.lua/"]; then
+  rm ~/.config/nvim/lua/plugins/example.lua 
+fi
 cp example.lua ~/.config/nvim/lua/plugins/example.lua
+
+if [ -d "~/.config/nvim/lua/config/autocmds.lua"]; then
+  rm ~/.config/nvim/lua/config/autocmds.lua
+fi
 cp autocmds.lua ~/.config/nvim/lua/config/autocmds.lua
+
+if [ -d "~/.config/nvim/lua/config/keymaps.lua"]; then
+  rm ~/.config/nvim/lua/config/keymaps.lua
+fi
 cp keymaps.lua ~/.config/nvim/lua/config/keymaps.lua
+
+if [ -d "~/.config/nvim/lua/config/lazy.lua"]; then
+  rm ~/.config/nvim/lua/config/lazy.lua
+fi
 cp lazy.lua ~/.config/nvim/lua/config/lazy.lua
+
+if [ -d "~/.config/nvim/nvim/lua/config/options.lua"]; then
+  rm ~/.config/nvim/lua/config/options.lua
+fi
 cp options.lua ~/.config/nvim/lua/config/options.lua
+
+if [ -d "~/.config/i3/config"]; then
+  rm ~/.config/i3/config
+fi
 cp config_i3 ~/.config/i3/config
+
+if [ -d "~/.config/i3/.i3status.conf"]; then
+  rm ~/.config/i3/.i3status.conf
+fi
 cp i3status.conf ~/.config/i3/.i3status.conf
+
+if [ -d "~/.config/gtk-3.0/settings.ini"]; then
+  rm ~/.config/gtk-3.0/settings.ini
+fi
 cp settings_gtk3.ini ~/.config/gtk-3.0/settings.ini
+
+if [ -d "~/.config/gtk-4.0/settings.ini"]; then
+  rm ~/.config/gtk-4.0/settings.ini
+fi
 cp settings_gtk4.ini ~/.config/gtk-4.0/settings.ini
+
+
+
+
+
