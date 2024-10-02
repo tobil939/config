@@ -164,4 +164,9 @@ if [ -f ~/.config/kitty/kitty.conf ]; then
   sudo rm ~/.config/kitty/kitty.conf
 sudo cp kitty.conf ~/.config/kitty/kitty.conf
 
+echo -e "\n \n \n Dark Mode"
+gsettings set org.gnome.desktop.interface gtk-theme "Arc-Dark"
+gsettings set org.gnome.desktop.interface icon-theme "Arc"
+gsettings set org.gnome.shell.extensions.user-theme name "Arc-Dark"
 echo -e "\n \n \n fertig"
+
