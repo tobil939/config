@@ -191,6 +191,6 @@ sudo pacman -Syu --noconfirm
 
 echo -e "\n \n \n Dark Mode"
 gsettings set org.gnome.desktop.interface gtk-theme "Arc-Dark"
-gsettings set org.gnome.desktop.interface icon-theme "Arc"
-gsettings set org.gnome.shell.extensions.user-theme name "Arc-Dark"
+gsettings set org.gnome.desktop.interface icon-theme "Adwaita"
+gsettings set org.gnome.shell.extensions.user-theme name "Adwaita"
 echo -e "\n \n \n fertig"
