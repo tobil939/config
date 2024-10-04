@@ -81,6 +81,18 @@ git config --global user.email "$user_email"
 git config --global core.editor nvim
 git config --list
 
+# Installation von yay
+echo -e "\n \n \n yay"
+sudo pacman -S --needed git base-devel
+git clone kttps://aur.archlinux.org/yay.git
+cd yay 
+makepkg -si
+cd ~
+
+echo -e "\n \n \n yay Update
+yay -Syu --devel
+yay -Syu --timeupdate
+
 # Git-Ordner erstellen und klonen
 echo -e "\n \n \n git kopieren"
 echo "Ordner erstellen"
@@ -185,6 +197,7 @@ fi
 cd /home/$user_name/git1/latex_vorlage
 sudo cp tex.sh /usr/local/tex.sh
 chmod +x tex.sh
+cd ~
 
 echo -e "\n \n \n Update"
 sudo pacman -Syu --noconfirm
@@ -193,4 +206,13 @@ echo -e "\n \n \n Dark Mode"
 gsettings set org.gnome.desktop.interface gtk-theme "Arc-Dark"
 gsettings set org.gnome.desktop.interface icon-theme "Adwaita"
 gsettings set org.gnome.shell.extensions.user-theme name "Adwaita"
+
+echo -e "\n \n \n neofetch einbinden"
+if [ ! greq -Fxq "neofetch" ~/.bashrc}; then
+  echo "neofetch" >> ~/.bashrc
+  echo "neofetch hinzugefügt"
+else
+  echo "neofetch bereits vorhanden"
+fi
+
 echo -e "\n \n \n fertig"
