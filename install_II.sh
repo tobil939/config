@@ -6,29 +6,47 @@ echo "Ordner erstellen"
 cd /home/$user_name/
 mkdir -p /home/$user_name/git1/arduino
 mkdir -p /home/$user_name/git1/config
+mkdir -p /home/$user_name/git1/hyprland
+mkdir -p /home/$user_name/git1/lazy
 mkdir -p /home/$user_name/git1/doku
 mkdir -p /home/$user_name/git1/latex_vorlage
 mkdir -p /home/$user_name/git/
 
 echo -e "\n \n \n ------Dateien clonen------"
 git clone https://github.com/tobil939/doku.git /home/$user_name/git1/doku
-git clone https://github.com/tobil939/config.git /home/$user_name/git1/config
 git clone https://github.com/tobil939/arduino.git /home/$user_name/git1/arduino
 git clone https://github.com/tobil939/latex_vorlage.git /home/$user_name/git1/latex_vorlage
+git clone https://github.com/tobil939/config.git /home/$user_name/git1/config
+git clone https://github.com/tobil939/hyprland.git /home/$user_name/git1/hyprland
+git clone https://github.com/tobil939/lazy.git /home/$user_name/git1/lazy
 
 # Verzeichnisse für nvim und i3 erstellen, falls nicht vorhanden
 echo -e "\n \n \n ------Ordner werden erstellt------"
-mkdir -p ~/.config/nvim/lua/config/
-mkdir -p ~/.config/nvim/lua/plugins/
-mkdir -p ~/.config/hypr/
-mkdir -p ~/.config/waybar/
-#mkdir -p ~/.config/gtk-3.0/
-#mkdir -p ~/.config/gtk-4.0/
-mkdir -p ~/.config/kitty/
+cd ..
+cd ..
+if [ ! -d "~/.config/nvim/lua/config/" ]; then
+  mkdir -p ~/.config/nvim/lua/config/
+fi
+
+if [ ! -d "~/.config/nvim/lua/plugins/" ]; then
+  mkdir -p ~/.config/nvim/lua/plugins/
+fi
+
+if [ ! -d "~/.config/hypr/" ]; then
+  mkdir -p ~/.config/hypr/
+fi
+
+if [ ! -d "~/.config/waybar/" ]; then
+  mkdir -p ~/.config/waybar/
+fi
+
+if [ ! -d "~/.config/kitty/" ]; then
+  mkdir -p ~/.config/kitty/
+fi
 
 echo -e "\n \n \n ------Daten kopieren------"
 # Dateien verschieben und alte löschen
-cd /home/$user_name/git1/config/
+cd /home/$user_name/git1/lazy/
 echo -e "\n \n \n ------init.lua------"
 if [ -f ~/.config/nvim/init.lua ]; then
   sudo rm ~/.config/nvim/init.lua
@@ -65,36 +83,24 @@ if [ -f ~/.config/nvim/lua/config/options.lua ]; then
 fi
 sudo cp options.lua ~/.config/nvim/lua/config/options.lua
 
+cd /home/$user_name/git1/hyprland/
 echo -e "\n \n \n ------hyprland.conf------"
 if [ -f ~/.config/hypr/hyprland.conf ]; then
   sudo rm ~/.config/hypr/hyprland.conf
 fi
 sudo cp hyprland.conf ~/.config/hypr/hyprland.conf
 
-echo -e "\n \n \n ------waybar config------"
-if [ -f ~/.config/waybar/config.jsonc ]; then
-  sudo rm ~/.config/waybar/config.jsonc
-fi
-sudo cp config.jsonc ~/.config/waybar/config.jsonc
-
-echo -e "\n \n \n ------waybar style------"
 if [ -f ~/.config/waybar/style.css ]; then
   sudo rm ~/.config/waybar/style.css
 fi
-sudo cp config.jsonc ~/.config/waybar/style.css
+sudo cp style.css ~/.config/waybar/style.css
 
-#echo -e "\n \n \n ------gtk3 settings------"
-#if [ -f ~/.config/gtk-3.0/settings.ini ]; then
-#  sudo rm ~/.config/gtk-3.0/settings.ini
-#fi
-#sudo cp settings_gtk3.ini ~/.config/gtk-3.0/settings.ini
+if [ -f ~/.config/waybar/config.jsonc ]; then
+  sudo rm ~/.config/waybar/config.jsonc
+fi
+sudo cp style.css ~/.config/waybar/config.jsonc
 
-#echo -e "\n \n \n ------gtk4 settings------"
-#if [ -f ~/.config/gtk-4.0/settings.ini ]; then
-#  sudo rm ~/.config/gtk-4.0/settings.ini
-#fi
-#sudo cp settings_gtk4.ini ~/.config/gtk-4.0/settings.ini
-
+cd /home/$user_name/git1/config/
 echo -e "\n \n \n ------kitty conf------"
 if [ -f ~/.config/kitty/kitty.conf ]; then
   sudo rm ~/.config/kitty/kitty.conf
@@ -113,6 +119,7 @@ cd /home/$user_name/
 
 echo -e "\n \n \n ------Update------"
 sudo pacman -Syu --noconfirm
+sudo yay -Syu
 
 echo -e "\n \n \n ------Dark Mode------"
 
@@ -140,6 +147,6 @@ echo -e "\n Emailadresse für git: $user_email \n"
 git config --global user.name "$user_git"
 git config --global user.email "$user_email"
 git config --global core.editor nvim
-git config --list
 
 echo -e "\n \n \n ------fertig------"
+
