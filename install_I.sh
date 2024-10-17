@@ -17,10 +17,16 @@ echo -e "\n \n \n ------nm-applet------"
 sudo pacman -Sy nm-applet --noconfirm
 echo -e "\n \n \n ------waybar------"
 sudo pacman -Sy waybar --noconfirm
-echo -e "\n \n \n ------dunst------"
-sudo pacman -Sy dunst --noconfirm
+echo -e "\n \n \n ------swaync------"
+sudo pacman -Sy swaync --noconfirm
 echo -e "\n \n \n ------wofi------"
 sudo pacman -Sy wofi --noconfirm
+echo -e "\n \n \n ------hypridle------"
+sudo pacman -Sy hypridle --noconfirm
+echo -e "\n \n \ņ ------hyprlock------"
+sudo pacman -Sy hyprlock --noconfirm
+echo -e "\n \n \n ------hyprshot------"
+sudo pacman -Sy hyprshot --noconfirm
 echo -e "\n \n \n ------pavucontrol------"
 sudo pacman -Sy pavucontrol --noconfirm
 echo -e "\n \n \n ------qt5-wayland------"
@@ -51,8 +57,6 @@ echo -e "\n \n \n ------nautilus------"
 sudo pacman -Sy nautilus --noconfirm
 echo -e "\n \n \n ------timeshift------"
 sudo pacman -Sy timeshift --noconfirm
-echo -e "\n \n \n ------xorg------"
-sudo pacman -Sy xorg --noconfirm
 echo -e "\n \n \n ------gtk------"
 sudo pacman -Sy gtk2 --noconfirm
 sudo pacman -Sy gtk3 --noconfirm
@@ -63,28 +67,36 @@ sudo pacman -Sy gnome-themes-extra --noconfirm
 sudo pacman -Sy arc-gtk-theme --noconfirm
 echo -e "\n \n \n ------lxappearance------"
 sudo pacman -Sy lxappearance --noconfirm
-echo -e "\n \n \n ------npm------"
-sudo pacman -Sy npm --noconfirm
 echo -e "\n \n \n ------todo list------"
 sudo pacman -Sy endeavour --noconfirm
 echo -e "\n \n \n ------PDF------"
 sudo pacman -Sy evince --noconfirm
-echo -e "\n \n \n ------LaTeX------"
-sudo pacman -Sy texlive --noconfirm
-sudo pacman -Sy texmaker --noconfirm
+#echo -e "\n \n \n ------LaTeX------"
+#sudo pacman -Sy texlive --noconfirm
+#sudo pacman -Sy texmaker --noconfirm
 echo -e "\n \n \n ------Nitrogen------"
 sudo pacman -Sy nitrogen --noconfirm
 echo -e "\n \n \n ------Kalender------"
 sudo pacman -Sy gnome-calendar --noconfirm
 echo -e "\n \n \n ------Nvim------"
 sudo pacman -Sy neovim --noconfirm
-echo -e "\n \n \n ------tree-sitter------"
-sudo npm install -g tree-sitter
-sudo npm install -g tree-sitter-cli
+echo -e "\n \n \n ------C Umgebung------"
+sudo pacman -Sy gcc --noconfirm
+sudo pacman -Sy gdb --noconfirm
+sudo pacman -Sy gdb-common --noconfirm
+sudo pacman -Sy gdbgui --noconfirm
 
 # Update durchführen
 echo -e "\n \n \n ------Update------"
 sudo pacman -Syu --noconfirm
+
+
+echo -e "\n \n \n ------npm------"
+sudo pacman -Sy npm --noconfirm
+echo -e "\n \n \n ------tree-sitter------"
+sudo npm install -g tree-sitter
+sudo npm install -g tree-sitter-cli
+sudo npm install -g matlab-language-server 
 
 # Git-Konfiguration
 #echo -e "\n \n \n ------git config------"
@@ -101,6 +113,14 @@ git clone https://aur.archlinux.org/yay.git
 cd yay
 makepkg -si
 cd /home/$user_name
+
+echo -e "\n \n \n ------python Umgebung------"
+yay -Sy python3
+yay -Sy python-gdbgui
+yay -Sy pdb
+
+echo -e "\n \n \n ------libre office------"
+yay -Sy libreoffice-still
 
 echo -e "\n \n \n ------yay Update------"
 yay -Syu --devel
