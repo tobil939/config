@@ -25,6 +25,10 @@ echo -e "\n \n \n ------swaync------"
 yay -S swaync --noconfirm
 echo -e "\n \n \n ------wofi------"
 yay -S wofi --noconfirm
+echo -e "\n \n \n ------bluetooth------"
+yay -S bluez --noconfirm
+yay -S bluez-utils --noconfirm
+yay -S blueman --noconfirm
 echo -e "\n \n \n ------hypridle------"
 yay -S hypridle --noconfirm
 echo -e "\n \n \n ------hyprlock------"
