@@ -10,92 +10,94 @@ echo -e "\n $datef Benutzername: $user_name \n" >>"$LOG_FILE" 2>>"$ERROR_LOG_FIL
 # Bitte hier die Progamme angeben die installiert werden sollen
 # pacman
 progpac=(
-	"wayland"
-	"hyprland"
-	"network-manager-applet"
-	"texlive"
-	"texmaker"
-	"gnome-calendar"
-	"python3"
-	"python-numba"
-	"python-dask"
-	"python-pandas"
-	"python-numpy"
-	"python-openpyxl"
-	"python-black"
-	"stylua"
-	"shfmt"
-	"clang"
-	"texlive-basic"
-	"texlive-lang"
-	"tree-sitter"
-	"fzf"
+  "wayland"
+  "hyprland"
+  "network-manager-applet"
+  "texlive"
+  "texmaker"
+  "gnome-calendar"
+  "python3"
+  "python-numba"
+  "python-dask"
+  "python-pandas"
+  "python-numpy"
+  "python-openpyxl"
+  "python-black"
+  "stylua"
+  "shfmt"
+  "clang"
+  "texlive-basic"
+  "texlive-lang"
+  "tree-sitter"
+  "fzf"
+  "go"
+  "delve"
 )
 
 #yay
 progyay=(
-	"polkit"
-	"waybar"
-	"swaync"
-	"wofi"
-	"hypridle"
-	"hyprlock"
-	"hyprshot"
-	"pavucontrol"
-	"qt5-wayland"
-	"qt6-wayland"
-	"neofetch"
-	"kitty"
-	"firefox"
-	"gedit"
-	"ttf-meslo-nerd"
-	"picom"
-	"feh"
-	"git"
-	"github-cli"
-	"nautilus"
-	"dolphin"
-	"timeshift"
-	"gtk2"
-	"gtk3"
-	"gtk4"
-	"arc-gtk-theme"
-	"gtk-engine-murrine"
-	"lxappearance"
-	"endeavour"
-	"evince"
-	"nitrogen"
-	"neovim"
-	"gcc"
-	"gdb"
-	"gdb-common"
-	"npm"
-	"libreoffice-still"
-	"bluez"
-	"bluez-utils"
-	"blueman"
-	"python-gdbgui"
-	"pdb"
-	"gdbgui"
-	"evolution"
-	"matlab"
+  "polkit"
+  "waybar"
+  "swaync"
+  "wofi"
+  "hypridle"
+  "hyprlock"
+  "hyprshot"
+  "pavucontrol"
+  "qt5-wayland"
+  "qt6-wayland"
+  "neofetch"
+  "kitty"
+  "firefox"
+  "gedit"
+  "ttf-meslo-nerd"
+  "picom"
+  "feh"
+  "git"
+  "github-cli"
+  "nautilus"
+  "dolphin"
+  "timeshift"
+  "gtk2"
+  "gtk3"
+  "gtk4"
+  "arc-gtk-theme"
+  "gtk-engine-murrine"
+  "lxappearance"
+  "endeavour"
+  "evince"
+  "nitrogen"
+  "neovim"
+  "gcc"
+  "gdb"
+  "gdb-common"
+  "npm"
+  "libreoffice-still"
+  "bluez"
+  "bluez-utils"
+  "blueman"
+  "python-gdbgui"
+  "pdb"
+  "gdbgui"
+  "evolution"
+  "matlab"
 )
 
 # installieren von pacman Programmen
 for prog in "${progpac[@]}"; do
-	echo -e "\n \n \n"
-	echo -e "\n ------------------------------------"
-	echo -e "installiere $prog"
-	notify-send "$prog wird installiert"
-	sudo pacman -Sy --noconfirm "$prog" >>"$LOG_FILE" 2>>"$ERROR_LOG_FILE"
+  echo -e "\n \n \n"
+  echo -e "\n ------------------------------------"
+  echo -e "installiere $prog"
+  notify-send "$prog wird installiert"
+  sudo pacman -Sy --noconfirm "$prog" >>"$LOG_FILE" 2>>"$ERROR_LOG_FILE"
 
-	if [ $? -eq 0 ]; then
-		echo -e "$prog wurde erfolgreich installiert"
-		notify-send "$prog wurde erfolgreich installiert"
-	else
-		echo -e "$prog wurde nicht richig installiert"
-		notify-send "$prog wurde nicht richtig installiert"
-	fi
+  if [ $? -eq 0 ]; then
+    echo -e "$prog wurde erfolgreich installiert"
+    notify-send "$prog wurde erfolgreich installiert"
+  else
+    echo -e "$prog wurde nicht richig installiert"
+    notify-send "$prog wurde nicht richtig installiert"
+  fi
 done
 
 # Installation von yay
@@ -109,19 +111,19 @@ cd /home/$user_name >>"$LOG_FILE" 2>>"$ERROR_LOG_FILE"
 
 # installieren von yay Programmen
 for prog in "${progyay[@]}"; do
-	echo -e "\n \n \n"
-	echo -e "\n ------------------------------------"
-	echo -e "installiere $prog"
-	notify-send "$prog wird installiert"
-	yay -Sy --noconfirm "$prog" >>"$LOG_FILE" 2>>"$ERROR_LOG_FILE"
+  echo -e "\n \n \n"
+  echo -e "\n ------------------------------------"
+  echo -e "installiere $prog"
+  notify-send "$prog wird installiert"
+  yay -Sy --noconfirm "$prog" >>"$LOG_FILE" 2>>"$ERROR_LOG_FILE"
 
-	if [ $? -eq 0 ]; then
-		echo -e "$prog wurde erfolgreich installiert"
-		notify-send "$prog wurde erfolgreich installiert"
-	else
-		echo -e "$prog wurde nicht richig installiert"
-		notify-send "$prog wurde nicht richtig installiert"
-	fi
+  if [ $? -eq 0 ]; then
+    echo -e "$prog wurde erfolgreich installiert"
+    notify-send "$prog wurde erfolgreich installiert"
+  else
+    echo -e "$prog wurde nicht richig installiert"
+    notify-send "$prog wurde nicht richtig installiert"
+  fi
 done
 
 echo -e "\n \n \n ------npm------"
@@ -131,6 +133,14 @@ sudo npm install -g tree-sitter --silent >>"$LOG_FILE" 2>>"$ERROR_LOG_FILE"
 sudo npm install -g tree-sitter-cli --silent >>"$LOG_FILE" 2>>"$ERROR_LOG_FILE"
 sudo npm install -g matlab-language-server --silent >>"$LOG_FILE" 2>>"$ERROR_LOG_FILE"
 sudo npm install -g prettier --silent >>"$LOG_FILE" 2>>"$ERROR_LOG_FILE"
+
+echo -e "\n \n \n ------go------"
+echo -e "\n \n \n ------go-language-server"
+notify-send "go language server"
+go install golang.org/x/tools/gopls@latest >>"$LOG_FILE" 2>>"$ERROR_LOG_FILE"
+echo - "\n \n \n ------go debugger------"
+notify-send "go debugger"
+go install github.com/segmentio/golines@latest >>"$LOG_FILE" 2>>"$ERROR_LOG_FILE"
 
 echo -e "\n \n \n ------yay Update------"
 notify-send "yay Update"
@@ -171,42 +181,42 @@ cd /home/$user_name/git1/lazy/ >>"$LOG_FILE" 2>>"$ERROR_LOG_FILE"
 echo -e "\n \n \n ------init.lua------"
 notify-send "init.lua wird kopiert"
 if [ -f ~/.config/nvim/init.lua ]; then
-	sudo rm ~/.config/nvim/init.lua
+  sudo rm ~/.config/nvim/init.lua
 fi
 sudo cp init.lua ~/.config/nvim/init.lua >>"$LOG_FILE" 2>>"$ERROR_LOG_FILE"
 
 echo -e "\n \n \n ------example.lua------"
 notify-send "example wird kopiert"
 if [ -f ~/.config/nvim/lua/plugins/example.lua ]; then
-	sudo rm ~/.config/nvim/lua/plugins/example.lua
+  sudo rm ~/.config/nvim/lua/plugins/example.lua
 fi
 sudo cp example.lua ~/.config/nvim/lua/plugins/example.lua >>"$LOG_FILE" 2>>"$ERROR_LOG_FILE"
 
 echo -e "\n \n \n ------autocmds.lua------"
 notify-send "autocmds wird kopiert"
 if [ -f ~/.config/nvim/lua/config/autocmds.lua ]; then
-	sudo rm ~/.config/nvim/lua/config/autocmds.lua
+  sudo rm ~/.config/nvim/lua/config/autocmds.lua
 fi
 sudo cp autocmds.lua ~/.config/nvim/lua/config/autocmds.lua >>"$LOG_FILE" 2>>"$ERROR_LOG_FILE"
 
 echo -e "\n \n \n ------keymaps.lua------"
 notify-send "keymaps werden kopiert"
 if [ -f ~/.config/nvim/lua/config/keymaps.lua ]; then
-	sudo rm ~/.config/nvim/lua/config/keymaps.lua
+  sudo rm ~/.config/nvim/lua/config/keymaps.lua
 fi
 sudo cp keymaps.lua ~/.config/nvim/lua/config/keymaps.lua >>"$LOG_FILE" 2>>"$ERROR_LOG_FILE"
 
 echo -e "\n \n \n ------lazy.lua------"
 notify-send "lazy werden kopiert"
 if [ -f ~/.config/nvim/lua/config/lazy.lua ]; then
-	sudo rm ~/.config/nvim/lua/config/lazy.lua
+  sudo rm ~/.config/nvim/lua/config/lazy.lua
 fi
 sudo cp lazy.lua ~/.config/nvim/lua/config/lazy.lua >>"$LOG_FILE" 2>>"$ERROR_LOG_FILE"
 
 echo -e "\n \n \n ------options.lua------"
 notify-send "options werden kopiert"
 if [ -f ~/.config/nvim/lua/config/options.lua ]; then
-	sudo rm ~/.config/nvim/lua/config/options.lua
+  sudo rm ~/.config/nvim/lua/config/options.lua
 fi
 sudo cp options.lua ~/.config/nvim/lua/config/options.lua >>"$LOG_FILE" 2>>"$ERROR_LOG_FILE"
 
@@ -214,20 +224,20 @@ echo -e "\n \n \n ------hyprland.conf------"
 cd /home/$user_name/git1/hyprland
 notify-send "hyprland werden kopiert"
 if [ -f ~/.config/hypr/hyprland.conf ]; then
-	sudo rm ~/.config/hypr/hyprland.conf
+  sudo rm ~/.config/hypr/hyprland.conf
 fi
 sudo cp hyprland.conf ~/.config/hypr/hyprland.conf >>"$LOG_FILE" 2>>"$ERROR_LOG_FILE"
 
 echo -e "\n \n \n ------waybar config------"
 notify-send "waybar wird kopiert"
 if [ -f ~/.config/waybar/config.jsonc ]; then
-	sudo rm ~/.config/waybar/config.jsonc
+  sudo rm ~/.config/waybar/config.jsonc
 fi
 sudo cp config.jsonc ~/.config/waybar/config.jsonc >>"$LOG_FILE" 2>>"$ERROR_LOG_FILE"
 
 echo -e "\n \n \n ------waybar style------"
 if [ -f ~/.config/waybar/style.css ]; then
-	sudo rm ~/.config/waybar/style.css
+  sudo rm ~/.config/waybar/style.css
 fi
 sudo cp config.jsonc ~/.config/waybar/style.css >>"$LOG_FILE" 2>>"$ERROR_LOG_FILE"
 
@@ -235,7 +245,7 @@ echo -e "\n \n \n ------kitty conf------"
 cd /home/$user_name/git1/config
 notify-send "kitty wird kopiert"
 if [ -f ~/.config/kitty/kitty.conf ]; then
-	sudo rm ~/.config/kitty/kitty.conf
+  sudo rm ~/.config/kitty/kitty.conf
 fi
 sudo cp kitty.conf ~/.config/kitty/kitty.conf >>"$LOG_FILE" 2>>"$ERROR_LOG_FILE"
 
@@ -243,7 +253,7 @@ echo -e "\n \n \n ------bash------"
 cd /home/$user_name/git1/latex_vorlage >>"$LOG_FILE" 2>>"$ERROR_LOG_FILE"
 notify-send "bash wird erstellt für LaTeX"
 if [ -f /usr/local/bin/tex.sh ]; then
-	sudo rm /usr/local/bin/tex.sh
+  sudo rm /usr/local/bin/tex.sh
 fi
 
 sudo cp tex.sh /usr/local/bin/tex.sh >>"$LOG_FILE" 2>>"$ERROR_LOG_FILE"
@@ -267,10 +277,10 @@ sudo systemctl enable bluetooth.service >>"$LOG_FILE" 2>>"$ERROR_LOG_FILE"
 
 echo -e "\n \n \n ------neofetch einbinden------"
 if ! grep -Fxq "neofetch" ~/.bashrc; then
-	echo "neofetch" >>~/.bashrc >>"$LOG_FILE" 2>>"$ERROR_LOG_FILE"
-	echo "neofetch hinzugefügt"
+  echo "neofetch" >>~/.bashrc >>"$LOG_FILE" 2>>"$ERROR_LOG_FILE"
+  echo "neofetch hinzugefügt"
 else
-	echo "neofetch bereits vorhanden"
+  echo "neofetch bereits vorhanden"
 fi
 
 echo -e "\n \n \n ------git config------"
