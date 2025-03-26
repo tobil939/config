@@ -1,7 +1,9 @@
 -- ~/nvim/lua/config/autocmds.lua
 vim.api.nvim_create_autocmd("BufWritePost", {
   pattern = { "*.tex", "*.lua", "*.c", "*.go", "*.hs", "*.py", "*.r", "*.zig", "*.asm" },
-  command = "FormatWrite",
+  callback = function()
+    vim.lsp.buf.format({ async = false })
+  end,
 })
 
 vim.api.nvim_create_autocmd("VimEnter", {
@@ -14,3 +16,12 @@ vim.api.nvim_create_autocmd("VimEnter", {
     end
   end,
 })
+
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "*",
+  callback = function()
+    vim.opt.formatoptions:remove({ "o", "r" }) -- Entfernt automatische Kommentarfortsetzung
+  end,
+})
+
+
