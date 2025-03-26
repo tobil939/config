@@ -11,4 +11,5 @@ return {
       })
     end,
   },
+  { "nvim-treesitter/nvim-treesitter-textobjects", lazy = false },
 }
