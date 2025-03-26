@@ -13,5 +13,14 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+-- Lade Optionen
+require("config.options")
+
+-- Lade keymaps
+require("config.keymaps")
+
+-- Lade autocmds
+require("config.autocmds")
+
 -- Lade LazyVim mit Plugins
 require("lazy").setup("plugins", {})
