@@ -15,4 +15,7 @@ sudo pacman -Syu --noconfirm >>"$LOG_FILE" 2>>"$ERROR_LOG_FILE"
 
 echo -e "\n \n \n ------yay------"
 sudo yay -Syu --noconfirm >>"$LOG_FILE" 2>>"$ERROR_LOG_FILE"
+
+echo -e "\n \n \n ------npm------"
+sudo npm update -g --yes >>"$LOG_FILE" 2>>"$ERROR_LOG_FILE"
 #reboot
