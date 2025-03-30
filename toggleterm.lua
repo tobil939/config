@@ -3,7 +3,7 @@ return {
   config = function()
     require("toggleterm").setup({
       direction = "horizontal",  -- Open at bottom
-      size = 15,  -- Only 5 lines high
+      size = 7,  -- Only 5 lines high
       --open_mapping = [[<C-/>]],  -- Toggle with <leader>tb
       persist_size = true,  -- Keep the same height
       shade_terminals = true,  -- Dim background slightly
