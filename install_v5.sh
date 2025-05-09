@@ -8,9 +8,10 @@ fi
 
 # Benutzername und Log-Dateien
 user_name=$(whoami)
-log_file="/home/$user_name/install.txt"
-error_log_file="/home/$user_name/errorinstall.txt"
+log_file="/home/$user_name/Log/install.txt"
+error_log_file="/home/$user_name/Log/errorinstall.txt"
 datef="$(date '+%Y-%m-%d %H:%M:%S')"
+mkdir -p "/home/$user_name/Log/"
 touch "$log_file" "$error_log_file"
 if [ ! -w "$log_file" ] || [ ! -w "$error_log_file" ]; then
   echo "Keine Schreibrechte für Log-Dateien. Skript wird abgebrochen."
@@ -37,6 +38,7 @@ check_error "System-Update"
 progpac=(
   "wayland"
   "hyprland"
+  "xorg"
   "network-manager-applet"
   "texlive"
   "texmaker"
@@ -69,6 +71,9 @@ progpac=(
   "cppcheck"
   "hlint"
   "shellcheck"
+  "ncurses"
+  "libffi"
+  "gmp"
 )
 
 progyay=(
@@ -109,7 +114,7 @@ progyay=(
   "bluez"
   "bluez-utils"
   "blueman"
-  "python-gdbgui"
+  #"python-gdbgui"
   "gdbgui"
   "evolution"
   "lua-language-server"
@@ -125,6 +130,7 @@ progyay=(
   "python-debugpy"
   "go-asmfmt"
   "golangci-lint"
+  "stack-bin"
 )
 
 proglang=(
@@ -214,10 +220,9 @@ done
 # Ormolu über stack installieren
 echo -e "\n ------ormolu------"
 notify-send "ormolu wird installiert"
-sudo pacman -S --needed --noconfirm stack ncurses libffi gmp >>"$log_file" 2>>"$error_log_file"
 check_error "Installation von stack und GHC-Abhängigkeiten"
-stack setup >>"$log_file" 2>>"$error_log_file"
-check_error "Stack setup"
+#stack setup >>"$log_file" 2>>"$error_log_file"
+#check_error "Stack setup"
 stack install ormolu >>"$log_file" 2>>"$error_log_file"
 check_error "Installation von ormolu"
 sudo cp ~/.local/bin/ormolu /usr/local/bin/ >>"$log_file" 2>>"$error_log_file"
@@ -233,13 +238,13 @@ sudo npm install -g matlab-language-server --silent >>"$log_file" 2>>"$error_log
 sudo npm install -g prettier --silent >>"$log_file" 2>>"$error_log_file"
 check_error "Installation von npm-Paketen"
 
-# R-Pakete
+#R-Pakete
 echo -e "\n ------R------"
 notify-send "R-Pakete werden installiert"
-Rscript -e "install.packages(c('lintr', 'styler', 'languageserver'), repos='https://cran.r-project.org')" >>"$log_file" 2>>"$error_log_file"
+sudo Rscript -e "install.packages(c('lintr', 'styler', 'languageserver'), repos='https://cran.r-project.org')" >>"$log_file" #2>>"$error_log_file"
 check_error "Installation von R-Paketen"
 
-# Go-Tools
+#Go-Tools
 echo -e "\n ------Go------"
 notify-send "Go-Tools werden installiert"
 go install golang.org/x/tools/gopls@latest >>"$log_file" 2>>"$error_log_file"
@@ -253,7 +258,7 @@ notify-send "Ordner werden erstellt"
 cd /home/$user_name
 for prog in "${proglang[@]}"; do
   echo -e "Erstelle Ordner für $prog"
-  mkdir -p "/home/$user_name/$prog" "/home/$user_name/$prog/doku" "/home/$user_name/$prog/prog" "/home/$user_name/$prog/git" "/home/$user_name/Documents/latex/prog/$prog" >>"$log_file" 2>>"$error_log_file"
+  mkdir -p "/home/$user_name/Prog/$prog" "/home/$user_name/Doku/$prog" "/home/$user_name/Git/$prog" "/home/$user_name/Doku/latex/prog/$prog" >>"$log_file" 2>>"$error_log_file"
 done
 mkdir -p "/home/$user_name/log" "/home/$user_name/scripts" "/home/$user_name/git1/config" "/home/$user_name/git1/scripts" "/home/$user_name/git1/RP2040" >>"$log_file" 2>>"$error_log_file"
 mkdir -p "$HOME/.config/nvim/lua/config" "$HOME/.config/nvim/lua/plugins" "$HOME/.config/hypr" "$HOME/.config/waybar" "$HOME/.config/kitty" "$HOME/.config/qutebrowser" >>"$log_file" 2>>"$error_log_file"
@@ -263,12 +268,11 @@ check_error "Ordnererstellung"
 echo -e "\n ------Dateien klonen------"
 notify-send "Dateien werden geklont"
 for repo in "${git_repo[@]}"; do
-  if [ ! -d "/home/$user_name/git1/$repo" ]; then
+	echo "$repo">>"$log_file" 2>>"$error_log_file"
     git clone "https://github.com/tobil939/$repo.git" "/home/$user_name/git1/$repo" >>"$log_file" 2>>"$error_log_file"
-    check_error "Klonen von $repo"
-  else
-    echo "Repository $repo existiert bereits" >>"$log_file"
-  fi
+    echo "https://github.com/tobil939/$repo.git">>"$log_file" 2>>"$error_log_file"
+    echo "/home/$user_name/git1/$repo">>"$log_file" 2>>"$error_log_file"
+    check_error "Klonen von $repo">>"$log_file" 2>>"$error_log_file"
 done
 
 # Dateien aus tobil939/config kopieren
@@ -284,22 +288,28 @@ for file in "${nvim_plugin_files[@]}"; do
     check_error "Quelldatei $file fehlt"
   fi
   if [ -f "$HOME/.config/nvim/lua/plugins/$file" ]; then
-    mv "$HOME/.config/nvim/lua/plugins/$file" "$HOME/.config/nvim/lua/plugins/$file.bak" >>"$log_file" 2>>"$error_log_file"
+    sudo mv "$HOME/.config/nvim/lua/plugins/$file" "$HOME/.config/nvim/lua/plugins/$file.bak" >>"$log_file" 2>>"$error_log_file"
     echo "Backup von $file erstellt" >>"$log_file"
+else
+	mkdir -p "$HOME/.config/nvim/lua/plugins/"
+	echo "nvim plugins Ordner wurde ertellt"
   fi
-  cp "/home/$user_name/git1/config/$file" "$HOME/.config/nvim/lua/plugins/$file" >>"$log_file" 2>>"$error_log_file"
+  sudo cp "/home/$user_name/git1/config/$file" "$HOME/.config/nvim/lua/plugins/$file" >>"$log_file" 2>>"$error_log_file"
   check_error "Kopieren von $file"
 done
 for file in "${nvim_config_files[@]}"; do
   if [ ! -f "/home/$user_name/git1/config/$file" ]; then
     echo "Fehler: $file existiert nicht in /home/$user_name/git1/config/" >>"$log_file" 2>>"$error_log_file"
     check_error "Quelldatei $file fehlt"
+else
+	mkdir -p "$HOME/.config/nvim/lua/config/"
+	echo "nvim config Ordner wurde erstllt"
   fi
   if [ -f "$HOME/.config/nvim/lua/config/$file" ]; then
-    mv "$HOME/.config/nvim/lua/config/$file" "$HOME/.config/nvim/lua/config/$file.bak" >>"$log_file" 2>>"$error_log_file"
+    sudo mv "$HOME/.config/nvim/lua/config/$file" "$HOME/.config/nvim/lua/config/$file.bak" >>"$log_file" 2>>"$error_log_file"
     echo "Backup von $file erstellt" >>"$log_file"
   fi
-  cp "/home/$user_name/git1/config/$file" "$HOME/.config/nvim/lua/config/$file" >>"$log_file" 2>>"$error_log_file"
+  sudo cp "/home/$user_name/git1/config/$file" "$HOME/.config/nvim/lua/config/$file" >>"$log_file" 2>>"$error_log_file"
   check_error "Kopieren von $file"
 done
 if [ ! -f "/home/$user_name/git1/config/init.lua" ]; then
@@ -307,10 +317,10 @@ if [ ! -f "/home/$user_name/git1/config/init.lua" ]; then
   check_error "Quelldatei init.lua fehlt"
 fi
 if [ -f "$HOME/.config/nvim/init.lua" ]; then
-  mv "$HOME/.config/nvim/init.lua" "$HOME/.config/nvim/init.lua.bak" >>"$log_file" 2>>"$error_log_file"
+  sudo mv "$HOME/.config/nvim/init.lua" "$HOME/.config/nvim/init.lua.bak" >>"$log_file" 2>>"$error_log_file"
   echo "Backup von init.lua erstellt" >>"$log_file"
 fi
-cp "/home/$user_name/git1/config/init.lua" "$HOME/.config/nvim/init.lua" >>"$log_file" 2>>"$error_log_file"
+sudo cp "/home/$user_name/git1/config/init.lua" "$HOME/.config/nvim/init.lua" >>"$log_file" 2>>"$error_log_file"
 check_error "Kopieren von init.lua"
 
 # Hyprland-Dateien
@@ -320,10 +330,13 @@ for file in "${hypr_files[@]}"; do
     check_error "Quelldatei $file fehlt"
   fi
   if [ -f "$HOME/.config/hypr/$file" ]; then
-    mv "$HOME/.config/hypr/$file" "$HOME/.config/hypr/$file.bak" >>"$log_file" 2>>"$error_log_file"
+    sudo mv "$HOME/.config/hypr/$file" "$HOME/.config/hypr/$file.bak" >>"$log_file" 2>>"$error_log_file"
     echo "Backup von $file erstellt" >>"$log_file"
+else
+	mkdir -p "$HOME/.config/hypr/"
+	echo "hypr Ordner wurde erstellt"
   fi
-  cp "/home/$user_name/git1/config/$file" "$HOME/.config/hypr/$file" >>"$log_file" 2>>"$error_log_file"
+  sudo cp "/home/$user_name/git1/config/$file" "$HOME/.config/hypr/$file" >>"$log_file" 2>>"$error_log_file"
   check_error "Kopieren von $file"
 done
 
@@ -334,10 +347,13 @@ for file in "${waybar_files[@]}"; do
     check_error "Quelldatei $file fehlt"
   fi
   if [ -f "$HOME/.config/waybar/$file" ]; then
-    mv "$HOME/.config/waybar/$file" "$HOME/.config/waybar/$file.bak" >>"$log_file" 2>>"$error_log_file"
+    sudo mv "$HOME/.config/waybar/$file" "$HOME/.config/waybar/$file.bak" >>"$log_file" 2>>"$error_log_file"
     echo "Backup von $file erstellt" >>"$log_file"
+else
+	mkdir -p "$HOME/.config/waybar"
+	echo "waybar Ordner wurde erstllt"
   fi
-  cp "/home/$user_name/git1/config/$file" "$HOME/.config/waybar/$file" >>"$log_file" 2>>"$error_log_file"
+  sudo cp "/home/$user_name/git1/config/$file" "$HOME/.config/waybar/$file" >>"$log_file" 2>>"$error_log_file"
   check_error "Kopieren von $file"
 done
 
@@ -347,10 +363,13 @@ if [ ! -f "/home/$user_name/git1/config/config.py" ]; then
   check_error "Quelldatei config.py fehlt"
 fi
 if [ -f "$HOME/.config/qutebrowser/config.py" ]; then
-  mv "$HOME/.config/qutebrowser/config.py" "$HOME/.config/qutebrowser/config.py.bak" >>"$log_file" 2>>"$error_log_file"
+  sudo mv "$HOME/.config/qutebrowser/config.py" "$HOME/.config/qutebrowser/config.py.bak" >>"$log_file" 2>>"$error_log_file"
   echo "Backup von config.py erstellt" >>"$log_file"
+else
+	mkdir -p "$HOME/.config/qutebrowser/"
+	echo "qutebrowser Ordner wurde erstllt"
 fi
-cp "/home/$user_name/git1/config/config.py" "$HOME/.config/qutebrowser/config.py" >>"$log_file" 2>>"$error_log_file"
+sudo cp "/home/$user_name/git1/config/config.py" "$HOME/.config/qutebrowser/config.py" >>"$log_file" 2>>"$error_log_file"
 check_error "Kopieren von config.py"
 
 # Kitty-Konfiguration
@@ -361,10 +380,13 @@ if [ ! -f "/home/$user_name/git1/config/kitty.conf" ]; then
   check_error "Quelldatei kitty.conf fehlt"
 fi
 if [ -f "$HOME/.config/kitty/kitty.conf" ]; then
-  mv "$HOME/.config/kitty/kitty.conf" "$HOME/.config/kitty/kitty.conf.bak" >>"$log_file" 2>>"$error_log_file"
+  sudo mv "$HOME/.config/kitty/kitty.conf" "$HOME/.config/kitty/kitty.conf.bak" >>"$log_file" 2>>"$error_log_file"
   echo "Backup von kitty.conf erstellt" >>"$log_file"
+else
+	mkdir -p "$HOME/.config/kitty/"
+	echo "kitty Ordner wurde erstellt"
 fi
-cp "/home/$user_name/git1/config/kitty.conf" "$HOME/.config/kitty/kitty.conf" >>"$log_file" 2>>"$error_log_file"
+sudo cp "/home/$user_name/git1/config/kitty.conf" "$HOME/.config/kitty/kitty.conf" >>"$log_file" 2>>"$error_log_file"
 check_error "Kopieren von kitty.conf"
 
 # Dateien aus tobil939/scripts kopieren
