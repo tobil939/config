@@ -129,7 +129,7 @@ progyay=(
   "golangci-lint"
 )
 
-proglang
+proglang=(
   "lua"
   "clang"
   "go"
@@ -368,6 +368,7 @@ check_error "Kopieren von kitty.conf"
 # Dateien aus tobil939/scripts kopieren
 echo -e "\n ------Daten kopieren (scripts)------"
 notify-send "Skripte werden kopiert"
+cp -r /home/$user_name/git1/scripts/* $HOME/Scripts/
 cd /home/$user_name/git1/scripts
 check_error "Wechseln in scripts-Verzeichnis"
 script_files=("bluetooth.sh" "bunga.sh" "flash.sh" "mnt.sh" "pico.sh" "tex.sh" "update.sh")
