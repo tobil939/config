@@ -53,3 +53,13 @@ vim.keymap.set("n", ";l", function()
 	require("lint").try_lint()
 	vim.notify("🔍 Linting ausgelöst!", vim.log.levels.INFO)
 end, { desc = "Lint current file with nvim-lint" })
+
+vim.keymap.set("n", ";de", function()
+  vim.diagnostic.enable()
+  vim.notify("✅ Diagnostics aktiviert", vim.log.levels.INFO)
+end, { desc = "Diagnostics aktivieren" })
+
+vim.keymap.set("n", ";dd", function()
+  vim.diagnostic.disable()
+  vim.notify("🚫 Diagnostics deaktiviert", vim.log.levels.WARN)
+end, { desc = "Diagnostics deaktivieren" })
