@@ -1,10 +1,10 @@
 -- ~/nvim/lua/config/autocmds.lua
-vim.api.nvim_create_autocmd("BufWritePost", {
-  pattern = { "*.tex", "*.lua", "*.c", "*.go", "*.hs", "*.py", "*.r", "*.zig", "*.asm" },
-  callback = function()
-    vim.lsp.buf.format({ async = false })
-  end,
-})
+--vim.api.nvim_create_autocmd("BufWritePost", {
+--  pattern = { "*.tex", "*.lua", "*.c", "*.go", "*.hs", "*.py", "*.r", "*.zig", "*.asm" },
+--  callback = function()
+--    vim.lsp.buf.format({ async = false })
+--  end,
+--})
 
 vim.api.nvim_create_autocmd("VimEnter", {
   callback = function()
