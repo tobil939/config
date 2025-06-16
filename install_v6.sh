@@ -52,6 +52,9 @@ progpac=(
   "python-black"
   "python-flake8"
   "python-debugpy"
+  "python-pylint"
+  "pyright"
+  "nodejs"
   "stylua"
   "shfmt"
   "clang"
@@ -63,6 +66,7 @@ progpac=(
   "gcc"
   "cmake"
   "make"
+  "cppcheck"
   "base-devel"
   "ripgrep"
   "luacheck"
@@ -72,6 +76,14 @@ progpac=(
   "libffi"
   "gmp"
   "qutebrowser"
+  "arm-none-eabi-gdb"
+  "lua-language-server"
+  "bash-language-server"
+  "texlab"
+  "texlive-binextra"
+  "perl-yaml-tiny"
+  "perl-file-homedir"
+  "shellcheck"
 )
 
 progyay=(
@@ -235,11 +247,11 @@ check_error "Ordnererstellung"
 echo -e "\n ------Dateien klonen------"
 notify-send "Dateien werden geklont"
 for repo in "${git_repo[@]}"; do
-	echo "$repo">>"$log_file" 2>>"$error_log_file"
-    git clone "https://github.com/tobil939/$repo.git" "/home/$user_name/git1/$repo" >>"$log_file" 2>>"$error_log_file"
-    echo "https://github.com/tobil939/$repo.git">>"$log_file" 2>>"$error_log_file"
-    echo "/home/$user_name/git1/$repo">>"$log_file" 2>>"$error_log_file"
-    check_error "Klonen von $repo">>"$log_file" 2>>"$error_log_file"
+  echo "$repo" >>"$log_file" 2>>"$error_log_file"
+  git clone "https://github.com/tobil939/$repo.git" "/home/$user_name/git1/$repo" >>"$log_file" 2>>"$error_log_file"
+  echo "https://github.com/tobil939/$repo.git" >>"$log_file" 2>>"$error_log_file"
+  echo "/home/$user_name/git1/$repo" >>"$log_file" 2>>"$error_log_file"
+  check_error "Klonen von $repo" >>"$log_file" 2>>"$error_log_file"
 done
 
 # Dateien aus tobil939/config kopieren
@@ -257,9 +269,9 @@ for file in "${nvim_plugin_files[@]}"; do
   if [ -f "$HOME/.config/nvim/lua/plugins/$file" ]; then
     sudo mv "$HOME/.config/nvim/lua/plugins/$file" "$HOME/.config/nvim/lua/plugins/$file.bak" >>"$log_file" 2>>"$error_log_file"
     echo "Backup von $file erstellt" >>"$log_file"
-else
-	mkdir -p "$HOME/.config/nvim/lua/plugins/"
-	echo "nvim plugins Ordner wurde ertellt"
+  else
+    mkdir -p "$HOME/.config/nvim/lua/plugins/"
+    echo "nvim plugins Ordner wurde ertellt"
   fi
   sudo cp "/home/$user_name/git1/config/$file" "$HOME/.config/nvim/lua/plugins/$file" >>"$log_file" 2>>"$error_log_file"
   check_error "Kopieren von $file"
@@ -268,9 +280,9 @@ for file in "${nvim_config_files[@]}"; do
   if [ ! -f "/home/$user_name/git1/config/$file" ]; then
     echo "Fehler: $file existiert nicht in /home/$user_name/git1/config/" >>"$log_file" 2>>"$error_log_file"
     check_error "Quelldatei $file fehlt"
-else
-	mkdir -p "$HOME/.config/nvim/lua/config/"
-	echo "nvim config Ordner wurde erstllt"
+  else
+    mkdir -p "$HOME/.config/nvim/lua/config/"
+    echo "nvim config Ordner wurde erstllt"
   fi
   if [ -f "$HOME/.config/nvim/lua/config/$file" ]; then
     sudo mv "$HOME/.config/nvim/lua/config/$file" "$HOME/.config/nvim/lua/config/$file.bak" >>"$log_file" 2>>"$error_log_file"
@@ -299,9 +311,9 @@ for file in "${hypr_files[@]}"; do
   if [ -f "$HOME/.config/hypr/$file" ]; then
     sudo mv "$HOME/.config/hypr/$file" "$HOME/.config/hypr/$file.bak" >>"$log_file" 2>>"$error_log_file"
     echo "Backup von $file erstellt" >>"$log_file"
-else
-	mkdir -p "$HOME/.config/hypr/"
-	echo "hypr Ordner wurde erstellt"
+  else
+    mkdir -p "$HOME/.config/hypr/"
+    echo "hypr Ordner wurde erstellt"
   fi
   sudo cp "/home/$user_name/git1/config/$file" "$HOME/.config/hypr/$file" >>"$log_file" 2>>"$error_log_file"
   check_error "Kopieren von $file"
@@ -316,9 +328,9 @@ for file in "${waybar_files[@]}"; do
   if [ -f "$HOME/.config/waybar/$file" ]; then
     sudo mv "$HOME/.config/waybar/$file" "$HOME/.config/waybar/$file.bak" >>"$log_file" 2>>"$error_log_file"
     echo "Backup von $file erstellt" >>"$log_file"
-else
-	mkdir -p "$HOME/.config/waybar"
-	echo "waybar Ordner wurde erstllt"
+  else
+    mkdir -p "$HOME/.config/waybar"
+    echo "waybar Ordner wurde erstllt"
   fi
   sudo cp "/home/$user_name/git1/config/$file" "$HOME/.config/waybar/$file" >>"$log_file" 2>>"$error_log_file"
   check_error "Kopieren von $file"
@@ -333,8 +345,8 @@ if [ -f "$HOME/.config/qutebrowser/config.py" ]; then
   sudo mv "$HOME/.config/qutebrowser/config.py" "$HOME/.config/qutebrowser/config.py.bak" >>"$log_file" 2>>"$error_log_file"
   echo "Backup von config.py erstellt" >>"$log_file"
 else
-	mkdir -p "$HOME/.config/qutebrowser/"
-	echo "qutebrowser Ordner wurde erstllt"
+  mkdir -p "$HOME/.config/qutebrowser/"
+  echo "qutebrowser Ordner wurde erstllt"
 fi
 sudo cp "/home/$user_name/git1/config/config.py" "$HOME/.config/qutebrowser/config.py" >>"$log_file" 2>>"$error_log_file"
 check_error "Kopieren von config.py"
@@ -350,8 +362,8 @@ if [ -f "$HOME/.config/kitty/kitty.conf" ]; then
   sudo mv "$HOME/.config/kitty/kitty.conf" "$HOME/.config/kitty/kitty.conf.bak" >>"$log_file" 2>>"$error_log_file"
   echo "Backup von kitty.conf erstellt" >>"$log_file"
 else
-	mkdir -p "$HOME/.config/kitty/"
-	echo "kitty Ordner wurde erstellt"
+  mkdir -p "$HOME/.config/kitty/"
+  echo "kitty Ordner wurde erstellt"
 fi
 sudo cp "/home/$user_name/git1/config/kitty.conf" "$HOME/.config/kitty/kitty.conf" >>"$log_file" 2>>"$error_log_file"
 check_error "Kopieren von kitty.conf"
@@ -405,7 +417,7 @@ fi
 # Neofetch in .bashrc
 echo -e "\n ------Neofetch einbinden------"
 if ! grep -Fxq "neofetch" ~/.bashrc; then
-  echo "neofetch" >> ~/.bashrc 2>>"$error_log_file"
+  echo "neofetch" >>~/.bashrc 2>>"$error_log_file"
   echo "neofetch hinzugefügt" >>"$log_file"
 else
   echo "neofetch bereits vorhanden" >>"$log_file"
