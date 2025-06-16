@@ -205,47 +205,19 @@ return {
 				{ desc = "Clear all breakpoints" }
 			)
 			vim.api.nvim_create_user_command("DapReplOpen", dap.repl.open, { desc = "Open DAP REPL" })
+			vim.api.nvim_create_user_command("DapRunDebugScript", function()
+  local debug_lua = vim.fn.expand("%:p:h") .. "/debug.lua"
+  local ok, err = pcall(dofile, debug_lua)
+  if not ok then
+    vim.notify("Fehler beim Ausführen von debug.lua: " .. err, vim.log.levels.ERROR)
+  end
+end, { desc = "Run debug.lua in current directory" })
 
-			-- Hilfe anzeigen
-			vim.api.nvim_create_user_command("DapHelp", function()
-				local help_text = {
-					":DapDebugWrite         ;dw - Delete executable, save file, and compile",
-					":DapContinue           ;c  - Debugging starten oder fortsetzen",
-					":DapStepOver           ;s  - Nächste Zeile (überspringt Funktionen)",
-					":DapStepInto           ;i  - In Funktion eintreten",
-					":DapStepOut            ;o  - Aus Funktion heraustreten",
-					":DapToggleBreakpoint   ;b  - Breakpoint an/aus",
-					":DapSetBreakpoint      ;B  - Bedingten Breakpoint setzen",
-					":DapClearBreakpoints   ;xb - Alle Breakpoints löschen",
-					":DapReplOpen           ;dr - REPL öffnen",
-					":DapSetWatches         ;w  - Variable beobachten",
-					":DapSetWatchesW        ;W  - Bedingte Variable beobachten",
-					":DapEditWatches        ;ew - Watches bearbeiten",
-					":DapDeleteWatches      ;xw - Watches löschen",
-					"                       ;a  - ARM Debugging starten",
-					"			                  ;l  - Linter Ausführen",
-					"			                  ;f  - Formatter Ausfürhen",
-					"			;de - Diagnose aktiveren, Linter Meldungen anzeigen",
-					"			;dd - Diagnose deaktivieren",
-				}
-				local buf = vim.api.nvim_create_buf(false, true)
-				vim.api.nvim_buf_set_lines(buf, 0, -1, false, help_text)
-				local width = math.min(80, vim.api.nvim_get_option("columns"))
-				local height = #help_text + 2
-				local win_opts = {
-					relative = "editor",
-					width = width,
-					height = height,
-					col = math.floor((vim.api.nvim_get_option("columns") - width) / 2),
-					row = math.floor((vim.api.nvim_get_option("lines") - height) / 2),
-					style = "minimal",
-					border = "single",
-				}
-				local win = vim.api.nvim_open_win(buf, true, win_opts)
-				vim.api.nvim_buf_set_keymap(buf, "n", "q", ":q<CR>", { noremap = true, silent = true })
-				vim.api.nvim_buf_set_keymap(buf, "n", "<Esc>", ":q<CR>", { noremap = true, silent = true })
-			end, { desc = "Show DAP command help" })
+vim.keymap.set("n", ";run", function()
+  vim.cmd("DapRunDebugScript")
+end, { noremap = true, silent = true })
 
+			
 			-- DAP-UI Setup
 			dapui.setup({
 				layouts = {
